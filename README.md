@@ -15,41 +15,41 @@
 
 ### 🧭 关于我
 
-喜欢动手把想法做成能用的东西。最感兴趣的方向是让 AI 不止于聊天，而是能自己规划步骤、使用工具、从错误里恢复，把一件事从头做到尾——围绕这件事，我陆续实现了一个 Agent 需要的各个组成部分：执行循环、多 Agent 协作、记忆与检索、评测与对照实验，也补齐了不少让它们能长时间稳定运行的底层组件，比如限流、熔断、幂等认领。
+喜欢动手把想法做成能用的东西。最感兴趣的方向是让 AI 不止于聊天，而是能自己规划步骤、使用工具、从错误里恢复，把一件事从头做到尾。围绕这件事，我陆续把一个 Agent 需要的零件都造了一遍：执行循环、多 Agent 协作、记忆与检索、评测与对照实验，还有那些不显眼但决定它能跑多久的底层组件，比如限流、熔断、幂等认领。
 
-写代码我会用 AI，翻翻我的 PR 和 commit 就能看出来：门禁卡得非常严，边界情况、韧性、健壮性这些我盯得最紧。前前后后用过的 Agent 不下三十个——Codex、Claude、Cursor、Devin、OpenCode、Cline、Aider、Kimi Code、ZCode……感受很多，这里写不下。前后端都写，Python 和 TypeScript 是主力，也喜欢用 Go 和 Rust 写贴近系统层面的东西。
+写代码我用 AI，但翻翻我的 PR 和 commit 就知道，门禁卡得非常严，边界情况、韧性、健壮性这些我盯得最紧。前前后后用过的 Agent 不下三十个：codex、claude、pi、cursor、devin、opencode、dsh、omp、cline、aider、grok build、Kimi Code、MiniMax Code、zcode、TRAE SOLO、Qoder、Xiaomi MiMo、Antigravity、lobehub、hermes、crush、codewhale、deepcode、goose、resonix、workboddy……感受很多，但是这里空间太小了，写不下。前后端都写，Python 和 TypeScript 是主力，也喜欢用 Go 和 Rust 写贴近系统层面的东西。
 
-音乐和竞速是另外两个出口：F1、MotoGP、GT 这类竞速赛事都爱看；听 House 和 Trance，Kygo、Deadmau5、Eric Prydz、Daft Punk 那一挂的；自己也做过音乐，FL Studio、Ableton Live、Cubase 都用过，将来想做个自己的插件，混响或者合成器。游戏玩得多，Agent 火起来之前就试过自己做游戏，后来发现做 Agent 这件事本身比做游戏还上头，就一直做到现在。
+竞速和音乐是另外两个爱好。F1、MotoGP、GT 这类比赛我都追；听 House 和 Trance，Kygo、Deadmau5、Eric Prydz、Daft Punk 这些听得最多。自己也做过音乐，FL Studio、Ableton Live、Cubase 都用过，以后想做一个自己的插件，混响或者合成器都行。游戏玩得多，Agent 火起来之前我就在试着自己做游戏，后来发现做 Agent 比做游戏还上瘾，就一路做到现在。
 
-项目大多从一个自己真实的需求开始，做着做着就长成了现在这个样子。想不停学新东西，把它们做出来，也想听听用的人怎么说——你们的意见对我很宝贵。
+项目大多从一个自己真实的需求开始，做着做着就长成了现在这个样子。想不停学新东西，然后把自己的想法做出来，也希望听到真实用户的反馈。
 
 ### 🚀 项目
 
-**[real-mock](https://github.com/daftpunkwav/real-mock)** — AI 模拟面试平台
+**[real-mock](https://github.com/daftpunkwav/real-mock)**：AI 模拟面试平台
 上传简历，和 AI 面试官来一场带语音的模拟面试：会提问、会追问、会打分，还有负责编程考核与评分复核的其他角色；从简历修改建议到面试报告，一个人就能练完整套流程。
 `Next.js` `FastAPI` `WebSocket` `SQLite` `ChromaDB` `faster-whisper` `Docker`
 
-**[voyager](https://github.com/daftpunkwav/voyager)** — 人机共用的 AI 工作台
-把代码仓库、文档、笔记放进同一个地方打理：你能点的每个按钮 AI 也能调用，AI 能做的每件事你也能亲手做——人和 AI 用的是同一套功能。
+**[voyager](https://github.com/daftpunkwav/voyager)**：人机共用的 AI 工作台
+把代码仓库、文档、笔记放进同一个地方打理：你能点的每个按钮 AI 也能调用，AI 能做的每件事你也能亲手做，人和 AI 用的是同一套功能。
 `FastAPI` `React` `SQLite` `uv workspaces`
 
-**[agent-prism](https://github.com/daftpunkwav/agent-prism)** — Agent 对照实验平台
+**[agent-prism](https://github.com/daftpunkwav/agent-prism)**：Agent 对照实验平台
 同一个问题让十种不同的 Agent 方案同时作答，答题过程并排实时可见：谁答得好、为什么好，用数据说话，选框架、调策略不用再靠感觉。
 `TypeScript` `Zod` `pnpm monorepo` `Hono` `SSE`
 
-**[wave-code](https://github.com/daftpunkwav/wave-code)** — AI 编程助手
+**[wave-code](https://github.com/daftpunkwav/wave-code)**：AI 编程助手
 一个能长时间自己干活的编程助手：会把大任务拆成小步推进，中途断了能从断点接着跑；干没干成不看它自己怎么说，以工作区的最终状态为准。
 `Rust` `MCP`
 
-**[breakwater](https://github.com/daftpunkwav/breakwater)** — LLM 网关
+**[breakwater](https://github.com/daftpunkwav/breakwater)**：LLM 网关
 站在应用和大模型之间的一道闸门：谁访问太快了拦一拦，上游挂了自动换备用，用量算得清清楚楚，让依赖大模型的服务稳得住。
 `Go` `Redis` `k6`
 
-**[rutter](https://github.com/daftpunkwav/rutter)** — AI Agent 的浏览器
+**[rutter](https://github.com/daftpunkwav/rutter)**：AI Agent 的浏览器
 给 AI 配一个真实的浏览器：能打开网页、看懂页面结构、替用户点按钮填表单，遇到敏感操作会先停下来等人确认。
 `Rust` `CDP` `MCP`
 
-**[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** — 联网搜索 MCP 服务器
+**[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)**：联网搜索 MCP 服务器
 让 AI 能上网搜索：接了多个搜索源，这条不行自动换下一条，也可以几条一起查、结果合并去重；不接客户端，命令行里也能直接搜。
 `TypeScript` `MCP`
 

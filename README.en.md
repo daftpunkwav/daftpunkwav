@@ -15,42 +15,42 @@
 
 ### 🧭 About
 
-I like building things that actually work. What interests me most is making AI more than a chat box — getting it to plan steps, use tools, recover from mistakes, and carry a task from start to finish. Around that idea I've built, piece by piece, the parts an agent needs: execution loops, multi-agent coordination, memory and retrieval, evaluation and side-by-side experiments — plus the unglamorous components underneath that keep them running for long stretches: rate limiting, circuit breaking, idempotent claims.
+I like building things that actually work. What interests me most is making AI more than a chat box: getting it to plan steps, use tools, recover from mistakes, and carry a task from start to finish. Around that idea I have built, piece by piece, the parts an agent needs: execution loops, multi-agent coordination, memory and retrieval, evaluation and side-by-side experiments, plus the quiet components underneath that decide how long it keeps running, like rate limiting, circuit breaking, and idempotent claims.
 
-I write code with AI, and my PRs and commit history show it: I keep the gates strict, and edge cases, resilience, and robustness are what I watch closest. I've been through thirty-odd agents so far — Codex, Claude, Cursor, Devin, OpenCode, Cline, Aider, Kimi Code, ZCode and more; plenty of opinions, too many for this space. I write both frontend and backend, mostly in Python and TypeScript, and I enjoy Go and Rust for things closer to the system level.
+I write code with AI, but my PRs and commit history show the habit: I keep the gates strict, and edge cases, resilience, and robustness are what I watch closest. I have been through thirty-plus agents so far: codex, claude, pi, cursor, devin, opencode, dsh, omp, cline, aider, grok build, Kimi Code, MiniMax Code, zcode, TRAE SOLO, Qoder, Xiaomi MiMo, Antigravity, lobehub, hermes, crush, codewhale, deepcode, goose, resonix, workboddy... plenty of opinions, but this page is too small to hold them. I write both frontend and backend, mostly in Python and TypeScript, and I enjoy Go and Rust for things closer to the system level.
 
-Racing and music are my other two outlets: I watch F1, MotoGP, and GT racing; I listen to house and trance — Kygo, Deadmau5, Eric Prydz, Daft Punk, that corner of the world. I've made some music of my own in FL Studio, Ableton Live, and Cubase, and someday I'd like to build my own plugin, a reverb or a synth. I play a lot of games, and before agents took off I was trying to make one — then I found building agents even more fun than building games, and I've been at it since.
+Racing and music are my other two hobbies. I follow F1, MotoGP, and GT racing. I listen to house and trance, with Kygo, Deadmau5, Eric Prydz, and Daft Punk in heaviest rotation. I have made some music of my own in FL Studio, Ableton Live, and Cubase, and someday I want to build my own plugin, a reverb or a synth. I play a lot of games, and before agents took off I was trying to make one. Then I found building agents even more addictive than building games, and I have been at it since.
 
-Most of these projects started from a real need of my own and grew from there. I want to keep learning, keep building, and hear from people who use what I make — feedback means a lot to me.
+Most of these projects started from a real need of my own and grew from there. I want to keep learning new things and turning my own ideas into working software, and I hope to hear honest feedback from real users.
 
 ### 🚀 Projects
 
-**[real-mock](https://github.com/daftpunkwav/real-mock)** — AI mock interview platform
+**[real-mock](https://github.com/daftpunkwav/real-mock)**: AI mock interview platform
 Upload a resume, then run a voice mock interview with an AI interviewer: it asks, follows up, and scores, with other roles handling the coding challenge and score review. From resume feedback to interview report, one person can practice the whole loop.
 `Next.js` `FastAPI` `WebSocket` `SQLite` `ChromaDB` `faster-whisper` `Docker`
 
-**[voyager](https://github.com/daftpunkwav/voyager)** — An AI workbench humans and agents share
-Keep repos, documents, and notes in one place: every button you can click, an AI can call too; everything an AI can do, you can do by hand — both sides use the same features.
+**[voyager](https://github.com/daftpunkwav/voyager)**: An AI workbench humans and agents share
+Keep repos, documents, and notes in one place: every button you can click, an AI can call too; everything an AI can do, you can do by hand. Both sides use the same features.
 `FastAPI` `React` `SQLite` `uv workspaces`
 
-**[agent-prism](https://github.com/daftpunkwav/agent-prism)** — Agent comparison lab
-Ask one question to ten different agent setups and watch the answers stream in side by side: who did better, and why, is settled by data — picking a framework or tuning a strategy stops being guesswork.
+**[agent-prism](https://github.com/daftpunkwav/agent-prism)**: Agent comparison lab
+Ask one question to ten different agent setups and watch the answers stream in side by side: who did better, and why, is settled by data. Picking a framework or tuning a strategy stops being guesswork.
 `TypeScript` `Zod` `pnpm monorepo` `Hono` `SSE`
 
-**[wave-code](https://github.com/daftpunkwav/wave-code)** — AI coding assistant
-A coding assistant that works on its own for long stretches: it breaks big tasks into small steps and resumes from where it stopped. Whether it actually succeeded isn't taken from its own word — the final state of the workspace decides.
+**[wave-code](https://github.com/daftpunkwav/wave-code)**: AI coding assistant
+A coding assistant that works on its own for long stretches: it breaks big tasks into small steps and resumes from where it stopped. Whether it actually succeeded isn't taken from its own word; the final state of the workspace decides.
 `Rust` `MCP`
 
-**[breakwater](https://github.com/daftpunkwav/breakwater)** — LLM gateway
-A gate between your app and large language models: it slows down anyone sending too much, switches to a backup when an upstream fails, and keeps every request accounted for — so services that depend on LLMs stay steady.
+**[breakwater](https://github.com/daftpunkwav/breakwater)**: LLM gateway
+A gate between your app and large language models: it slows down anyone sending too much, switches to a backup when an upstream fails, and keeps every request accounted for, so services that depend on LLMs stay steady.
 `Go` `Redis` `k6`
 
-**[rutter](https://github.com/daftpunkwav/rutter)** — A browser for AI agents
-Gives AI a real browser: it opens pages, understands what's on them, clicks buttons and fills forms for you — and pauses to ask a human before anything sensitive.
+**[rutter](https://github.com/daftpunkwav/rutter)**: A browser for AI agents
+Gives AI a real browser: it opens pages, understands what's on them, and clicks buttons and fills forms for you, pausing to ask a human before anything sensitive.
 `Rust` `CDP` `MCP`
 
-**[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** — Web search MCP server
-Lets AI search the web: several search providers behind one tool — fall back to the next one automatically when a provider fails, or query several at once and merge the results. Works from the command line too, no client needed.
+**[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)**: Web search MCP server
+Lets AI search the web: several search providers behind one tool, falling back to the next one automatically when a provider fails, or querying several at once and merging the results. Works from the command line too, no client needed.
 `TypeScript` `MCP`
 
 ### 🧰 Tech Stack

@@ -16,13 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # light: audio VU meter, green to red, synth-purple snake
+      # dark: F1 night-race brake glow, dark to hot orange, F1-red snake
       - name: Generate snake SVGs
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-contribution-grid-snake.svg?color_snake=%23a371f7&color_dots=%231b1f24,%231f6f43,%232ea043,%23e3b341,%23f85149
+            dist/github-contribution-grid-snake-dark.svg?color_snake=%23e10600&color_dots=%2321262d,%235a2a12,%239e3a10,%23e3570f,%23ff8c00
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
