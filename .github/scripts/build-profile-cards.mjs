@@ -87,14 +87,34 @@ const LOCALE = {
 
 // --- GitHub API --------------------------------------------------------------
 
+const BASE_HEADERS = {
+  accept: 'application/vnd.github+json',
+  'x-github-api-version': '2022-11-28',
+  'user-agent': 'github-profile-cards',
+};
+
+/**
+ * GITHUB_TOKEN is a repository-scoped installation token, which GitHub rejects on
+ * endpoints outside that repository ("Resource not accessible by integration").
+ * Every endpoint used here is public, so an auth failure falls back to the
+ * anonymous quota instead of failing the whole build. A real rate limit is not
+ * retried, it would only burn the second quota as well.
+ */
 async function api(endpoint) {
-  const headers = { accept: 'application/vnd.github+json', 'x-github-api-version': '2022-11-28', 'user-agent': 'github-profile-cards' };
-  if (TOKEN) headers.authorization = `Bearer ${TOKEN}`;
-  const response = await fetch(`${API}${endpoint}`, { headers });
-  if (!response.ok) {
-    throw new Error(`GET ${endpoint} failed: ${response.status} ${response.statusText}`);
+  const tokens = TOKEN ? [TOKEN, null] : [null];
+  let failure = 'no attempt made';
+  for (const token of tokens) {
+    const headers = { ...BASE_HEADERS };
+    if (token) headers.authorization = `Bearer ${token}`;
+    const response = await fetch(`${API}${endpoint}`, { headers });
+    if (response.ok) {
+      return { data: await response.json(), link: response.headers.get('link') ?? '' };
+    }
+    failure = `${response.status} ${response.statusText}`;
+    const rateLimited = response.headers.get('x-ratelimit-remaining') === '0';
+    if (![401, 403].includes(response.status) || rateLimited) break;
   }
-  return { data: await response.json(), link: response.headers.get('link') ?? '' };
+  throw new Error(`GET ${endpoint} failed: ${failure}`);
 }
 
 /** Public repos owned by the user, following pagination through the Link header. */
