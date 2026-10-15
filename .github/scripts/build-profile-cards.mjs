@@ -17,8 +17,9 @@ import path from 'node:path';
 const USER = process.env.GITHUB_USER || 'daftpunkwav';
 const TOKEN = process.env.GITHUB_TOKEN || '';
 const OUT_DIR = process.env.OUT_DIR || 'dist';
-const TOP_LANGUAGES = Number(process.env.TOP_LANGUAGES || 6);
+const TOP_LANGUAGES = Number(process.env.TOP_LANGUAGES || 8);
 const TOP_PROJECTS = Number(process.env.TOP_PROJECTS || 4);
+const MAX_LICENSES = Number(process.env.MAX_LICENSES || 3);
 const INCLUDE_FORKED = process.env.INCLUDE_FORKED === 'true';
 const EXCLUDED_REPOS = new Set(
   (process.env.EXCLUDE_REPOS || '').split(',').map((name) => name.trim().toLowerCase()).filter(Boolean),
@@ -49,16 +50,14 @@ const LANGUAGE_COLORS = {
 
 const FALLBACK_COLOR = '#8b949e';
 
-const CARD = {
-  // Kept at 450 so two cards fit side by side in a README without horizontal overflow.
-  width: 450,
-  padX: 28,
-  bg: '#0d1117',
-  border: '#30363d',
-  title: '#2dd4bf',
-  text: '#e6edf3',
-  muted: '#8b949e',
-  tile: '#161b22',
+// Geometry shared by every card. Cards share one height so that a row of them
+// lines up: inline images align on their baseline, so differing heights push the
+// shorter card downwards.
+const CARD = { width: 450, height: 250, padX: 28 };
+
+const THEMES = {
+  light: { bg: '#ffffff', border: '#d0d7de', title: '#0f766e', text: '#1f2328', muted: '#59636e', tile: '#f6f8fa' },
+  dark: { bg: '#0d1117', border: '#30363d', title: '#2dd4bf', text: '#e6edf3', muted: '#8b949e', tile: '#161b22' },
 };
 
 const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Ubuntu, Cantarell, Helvetica, Arial, sans-serif";
@@ -67,6 +66,7 @@ const LOCALE = {
   en: {
     languages: 'Most Used Languages',
     stats: 'Repository & Contribution',
+    licenses: 'Open Source Licenses',
     projects: 'Recently Active Projects',
     labels: {
       publicRepos: 'Public repositories',
@@ -74,11 +74,13 @@ const LOCALE = {
       commits: 'Commits - 12 months',
       mergedPrs: 'Merged PRs - 12 months',
     },
+    noLicense: 'No license',
     noDescription: 'No description provided',
   },
   zh: {
     languages: '最常使用的语言',
     stats: '仓库与贡献',
+    licenses: '开源协议',
     projects: '最近在做的项目',
     labels: {
       publicRepos: '公开仓库',
@@ -86,6 +88,7 @@ const LOCALE = {
       commits: '近一年提交',
       mergedPrs: '近一年合并的 PR',
     },
+    noLicense: '未声明',
     noDescription: '还没有写简介',
   },
 };
@@ -204,28 +207,31 @@ function fit(text, size, maxWidth) {
 const text = (x, y, size, fill, content, extra = '') =>
   `<text x="${x}" y="${y}" font-size="${size}" fill="${fill}"${extra}>${escapeXml(content)}</text>`;
 
-function card(height, label, body) {
+function card(theme, label, body) {
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD.width}" height="${height}" viewBox="0 0 ${CARD.width} ${height}" role="img" aria-label="${escapeXml(label)}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${CARD.width}" height="${CARD.height}" viewBox="0 0 ${CARD.width} ${CARD.height}" role="img" aria-label="${escapeXml(label)}">`,
     `<style>text{font-family:${FONT};font-weight:400}</style>`,
-    `<rect x="0.5" y="0.5" width="${CARD.width - 1}" height="${height - 1}" rx="12" fill="${CARD.bg}" stroke="${CARD.border}"/>`,
+    `<rect x="0.5" y="0.5" width="${CARD.width - 1}" height="${CARD.height - 1}" rx="12" fill="${theme.bg}" stroke="${theme.border}"/>`,
     body,
     '</svg>',
     '',
   ].join('\n');
 }
 
+/** First baseline that centres `rows` lines of `rowHeight` between two bounds. */
+function centredTop(from, to, rows, rowHeight) {
+  return from + (to - from - (rows - 1) * rowHeight) / 2;
+}
+
 // --- cards -------------------------------------------------------------------
 
-function languagesCard(entries, t) {
+function languagesCard(entries, t, theme) {
   const inner = CARD.width - CARD.padX * 2;
   const rows = Math.ceil(entries.length / 2);
-  const rowHeight = 28;
-  const legendTop = 112;
-  const height = legendTop + (rows - 1) * rowHeight + 26;
+  const rowHeight = 32;
   const total = entries.reduce((sum, entry) => sum + entry.bytes, 0) || 1;
 
-  const barY = 76;
+  const barY = 82;
   const barHeight = 9;
   let offset = 0;
   const segments = entries.map((entry) => {
@@ -235,8 +241,9 @@ function languagesCard(entries, t) {
     return rect;
   });
 
+  const legendTop = centredTop(124, 228, rows, rowHeight);
   const legend = entries.map((entry, index) => {
-    // Column-major: 1,2,3 down the left, 4,5,6 down the right.
+    // Column-major: 1,2,3,4 down the left, the rest down the right.
     const column = Math.floor(index / rows);
     const row = index % rows;
     const x = CARD.padX + column * (inner / 2);
@@ -245,27 +252,26 @@ function languagesCard(entries, t) {
     const label = fit(entry.name, 13, inner / 2 - 24 - textWidth(percent, 13) - 8);
     return [
       `<circle cx="${x + 5}" cy="${baseline - 4}" r="5" fill="${entry.color}"/>`,
-      `<text x="${x + 18}" y="${baseline}" font-size="13" fill="${CARD.text}">${escapeXml(label)} <tspan fill="${CARD.muted}">${percent}</tspan></text>`,
+      `<text x="${x + 18}" y="${baseline}" font-size="13" fill="${theme.text}">${escapeXml(label)} <tspan fill="${theme.muted}">${percent}</tspan></text>`,
     ].join('');
   });
 
   const body = [
-    text(CARD.padX, 50, 20, CARD.title, t.languages, ' font-weight="700"'),
+    text(CARD.padX, 50, 20, theme.title, t.languages, ' font-weight="700"'),
     `<clipPath id="bar-clip"><rect x="${CARD.padX}" y="${barY}" width="${inner}" height="${barHeight}" rx="${barHeight / 2}"/></clipPath>`,
     `<g clip-path="url(#bar-clip)">${segments.join('')}</g>`,
     legend.join(''),
   ].join('\n');
 
-  return card(height, t.languages, body);
+  return card(theme, t.languages, body);
 }
 
-function statsCard(stats, t) {
+function statsCard(stats, t, theme) {
   const inner = CARD.width - CARD.padX * 2;
   const gap = 16;
   const tileWidth = (inner - gap) / 2;
-  const tileHeight = 74;
-  const gridTop = 78;
-  const height = gridTop + tileHeight * 2 + gap + 24;
+  const tileHeight = 72;
+  const gridTop = 72;
 
   const tiles = [
     { value: stats.publicRepos, label: t.labels.publicRepos },
@@ -278,25 +284,50 @@ function statsCard(stats, t) {
     const x = CARD.padX + (index % 2) * (tileWidth + gap);
     const y = gridTop + Math.floor(index / 2) * (tileHeight + gap);
     return [
-      `<rect x="${x}" y="${y}" width="${tileWidth}" height="${tileHeight}" rx="10" fill="${CARD.tile}"/>`,
-      `<text x="${x + 18}" y="${y + 38}" font-size="30" font-weight="700" fill="${CARD.text}">${tile.value}</text>`,
-      text(x + 18, y + 60, 12, CARD.muted, fit(tile.label, 12, tileWidth - 32)),
+      `<rect x="${x}" y="${y}" width="${tileWidth}" height="${tileHeight}" rx="10" fill="${theme.tile}"/>`,
+      `<text x="${x + 18}" y="${y + 37}" font-size="30" font-weight="700" fill="${theme.text}">${tile.value}</text>`,
+      text(x + 18, y + 59, 12, theme.muted, fit(tile.label, 12, tileWidth - 32)),
     ].join('');
   });
 
   const body = [
-    text(CARD.padX, 50, 20, CARD.title, t.stats, ' font-weight="700"'),
+    text(CARD.padX, 50, 20, theme.title, t.stats, ' font-weight="700"'),
     cells.join('\n'),
   ].join('\n');
 
-  return card(height, t.stats, body);
+  return card(theme, t.stats, body);
 }
 
-function projectsCard(repos, t) {
+function licensesCard(licenses, t, theme) {
   const inner = CARD.width - CARD.padX * 2;
-  const rowHeight = 58;
-  const rowsTop = 74;
-  const height = rowsTop + repos.length * rowHeight + 18;
+  const rowHeight = 52;
+  const rowsTop = 82;
+  const total = licenses.reduce((sum, license) => sum + license.count, 0) || 1;
+
+  const rows = licenses.map((license, index) => {
+    const top = rowsTop + index * rowHeight;
+    const name = license.id ?? t.noLicense;
+    const share = license.count / total;
+    const barWidth = Math.max(8, share * inner);
+    return [
+      text(CARD.padX, top + 16, 13, theme.text, fit(name, 13, inner - 40)),
+      text(CARD.padX + inner, top + 16, 14, theme.muted, `${license.count}`, ' text-anchor="end" font-weight="600"'),
+      `<rect x="${CARD.padX}" y="${top + 26}" width="${barWidth.toFixed(2)}" height="7" rx="3.5" fill="${theme.title}"/>`,
+    ].join('');
+  });
+
+  const body = [
+    text(CARD.padX, 50, 20, theme.title, t.licenses, ' font-weight="700"'),
+    rows.join('\n'),
+  ].join('\n');
+
+  return card(theme, t.licenses, body);
+}
+
+function projectsCard(repos, t, theme) {
+  const inner = CARD.width - CARD.padX * 2;
+  const rowHeight = 44;
+  const rowsTop = 78;
 
   const rows = repos.map((repo, index) => {
     const y = rowsTop + index * rowHeight;
@@ -306,19 +337,19 @@ function projectsCard(repos, t) {
     const name = fit(repo.name, 14, inner - 20 - languageWidth - 12);
     const description = fit(repo.description || t.noDescription, 12, inner - 20);
     return [
-      `<circle cx="${CARD.padX + 5}" cy="${y - 5}" r="5" fill="${repo.language ? color : CARD.border}"/>`,
-      text(CARD.padX + 20, y, 14, CARD.text, name, ' font-weight="600"'),
-      language ? text(CARD.padX + inner, y, 11, CARD.muted, language, ' text-anchor="end"') : '',
-      text(CARD.padX + 20, y + 20, 12, CARD.muted, description),
+      `<circle cx="${CARD.padX + 5}" cy="${y - 5}" r="5" fill="${repo.language ? color : theme.border}"/>`,
+      text(CARD.padX + 20, y, 14, theme.text, name, ' font-weight="600"'),
+      language ? text(CARD.padX + inner, y, 11, theme.muted, language, ' text-anchor="end"') : '',
+      text(CARD.padX + 20, y + 19, 12, theme.muted, description),
     ].join('');
   });
 
   const body = [
-    text(CARD.padX, 50, 20, CARD.title, t.projects, ' font-weight="700"'),
+    text(CARD.padX, 50, 20, theme.title, t.projects, ' font-weight="700"'),
     rows.join('\n'),
   ].join('\n');
 
-  return card(height, t.projects, body);
+  return card(theme, t.projects, body);
 }
 
 // --- main --------------------------------------------------------------------
@@ -348,15 +379,36 @@ async function main() {
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
     .slice(0, TOP_PROJECTS);
 
+  // SPDX id of every repository, null when the repository declares no license.
+  const licenseCounts = new Map();
+  for (const repo of codeRepos) {
+    const id = repo.license?.spdx_id && repo.license.spdx_id !== 'NOASSERTION' ? repo.license.spdx_id : null;
+    licenseCounts.set(id, (licenseCounts.get(id) ?? 0) + 1);
+  }
+  const licenses = [...licenseCounts.entries()]
+    .sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0])))
+    .slice(0, MAX_LICENSES)
+    .map(([id, count]) => ({ id, count }));
+
   await mkdir(OUT_DIR, { recursive: true });
   for (const [locale, t] of Object.entries(LOCALE)) {
-    await writeFile(path.join(OUT_DIR, `profile-languages.${locale}.svg`), languagesCard(languages, t), 'utf8');
-    await writeFile(path.join(OUT_DIR, `profile-stats.${locale}.svg`), statsCard(stats, t), 'utf8');
-    await writeFile(path.join(OUT_DIR, `profile-projects.${locale}.svg`), projectsCard(projects, t), 'utf8');
+    for (const [themeName, theme] of Object.entries(THEMES)) {
+      const suffix = `${locale}-${themeName}`;
+      const cards = {
+        languages: languagesCard(languages, t, theme),
+        stats: statsCard(stats, t, theme),
+        licenses: licensesCard(licenses, t, theme),
+        projects: projectsCard(projects, t, theme),
+      };
+      for (const [name, svg] of Object.entries(cards)) {
+        await writeFile(path.join(OUT_DIR, `profile-${name}.${suffix}.svg`), svg, 'utf8');
+      }
+    }
   }
 
   console.log(`languages: ${languages.map((l) => `${l.name} ${l.bytes}`).join(', ') || 'none'}`);
   console.log(`stats: ${JSON.stringify(stats)}`);
+  console.log(`licenses: ${licenses.map((l) => `${l.id ?? 'none'} ${l.count}`).join(', ') || 'none'}`);
   console.log(`projects: ${projects.map((r) => r.full_name).join(', ') || 'none'}`);
 }
 

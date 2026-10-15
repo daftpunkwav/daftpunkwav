@@ -70,16 +70,31 @@ Lets AI search the web: several search providers behind one tool, falling back t
 
 <p align="center">
   <a href="https://github.com/daftpunkwav?tab=repositories">
-    <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-languages.en.svg" alt="most used languages" width="48%">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-languages.en-dark.svg">
+      <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-languages.en-light.svg" alt="most used languages" width="49%">
+    </picture>
+  </a>
+  <a href="https://github.com/daftpunkwav/daftpunkwav/commits/main">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-stats.en-dark.svg">
+      <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-stats.en-light.svg" alt="repository and contribution" width="49%">
+    </picture>
   </a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/daftpunkwav/daftpunkwav/commits/main">
-    <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-stats.en.svg" alt="repository and contribution" width="48%">
+  <a href="https://github.com/daftpunkwav?tab=repositories">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-licenses.en-dark.svg">
+      <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-licenses.en-light.svg" alt="open source licenses" width="49%">
+    </picture>
   </a>
   <a href="https://github.com/daftpunkwav?tab=repositories&sort=updated">
-    <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.en.svg" alt="recently active projects" width="48%">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.en-dark.svg">
+      <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.en-light.svg" alt="recently active projects" width="49%">
+    </picture>
   </a>
 </p>
 
