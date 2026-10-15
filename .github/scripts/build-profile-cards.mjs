@@ -70,7 +70,7 @@ const LOCALE = {
     projects: 'Recently Active Projects',
     labels: {
       publicRepos: 'Public repositories',
-      ownRepos: 'Own projects (no fork)',
+      ownRepos: 'Non-fork repositories',
       commits: 'Commits - 12 months',
       mergedPrs: 'Merged PRs - 12 months',
     },
@@ -84,7 +84,7 @@ const LOCALE = {
     projects: '最近在做的项目',
     labels: {
       publicRepos: '公开仓库',
-      ownRepos: '自有项目（不含 fork）',
+      ownRepos: '非 fork 仓库',
       commits: '近一年提交',
       mergedPrs: '近一年合并的 PR',
     },
@@ -358,30 +358,37 @@ async function main() {
   if (!USER) throw new Error('GITHUB_USER is not set');
 
   const allRepos = await fetchRepos();
-  const repos = allRepos.filter((repo) => !EXCLUDED_REPOS.has(repo.name.toLowerCase()) && !EXCLUDED_REPOS.has(repo.full_name.toLowerCase()) && (INCLUDE_FORKED || !repo.fork) && !repo.archived);
-  // The profile repository itself carries no code and is never worth showing.
-  const codeRepos = repos.filter((repo) => repo.name.toLowerCase() !== USER.toLowerCase());
+  const kept = (repo) => !EXCLUDED_REPOS.has(repo.name.toLowerCase()) && !EXCLUDED_REPOS.has(repo.full_name.toLowerCase());
+  // Everything the account owns: the basis for the repository counts and for
+  // commit activity. "public repos = non-fork repos + forks" holds exactly.
+  const ownedRepos = allRepos.filter((repo) => (INCLUDE_FORKED || !repo.fork) && !repo.archived);
+  // Real projects: the profile repository itself carries no code.
+  const projects = ownedRepos.filter((repo) => repo.name.toLowerCase() !== USER.toLowerCase());
+  // EXCLUDE_REPOS only applies to the language card. A repository can be a real
+  // project and still hold megabytes of vendored code that would swamp the byte
+  // totals while saying nothing about which languages the account is written in.
+  const languageRepos = projects.filter(kept);
 
   const [languages, commits, mergedPrs] = await Promise.all([
-    fetchLanguages(codeRepos),
-    fetchCommitCount(codeRepos),
+    fetchLanguages(languageRepos),
+    fetchCommitCount(ownedRepos),
     countSearch(`author:${USER} is:pr merged:>=${SINCE_DATE}`),
   ]);
 
   const stats = {
     publicRepos: allRepos.length,
-    ownRepos: codeRepos.length,
+    ownRepos: ownedRepos.length,
     commits,
     mergedPrs,
   };
 
-  const projects = [...codeRepos]
+  const recentProjects = [...projects]
     .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
     .slice(0, TOP_PROJECTS);
 
   // SPDX id of every repository, null when the repository declares no license.
   const licenseCounts = new Map();
-  for (const repo of codeRepos) {
+  for (const repo of projects) {
     const id = repo.license?.spdx_id && repo.license.spdx_id !== 'NOASSERTION' ? repo.license.spdx_id : null;
     licenseCounts.set(id, (licenseCounts.get(id) ?? 0) + 1);
   }
@@ -398,7 +405,7 @@ async function main() {
         languages: languagesCard(languages, t, theme),
         stats: statsCard(stats, t, theme),
         licenses: licensesCard(licenses, t, theme),
-        projects: projectsCard(projects, t, theme),
+        projects: projectsCard(recentProjects, t, theme),
       };
       for (const [name, svg] of Object.entries(cards)) {
         await writeFile(path.join(OUT_DIR, `profile-${name}.${suffix}.svg`), svg, 'utf8');
@@ -409,7 +416,7 @@ async function main() {
   console.log(`languages: ${languages.map((l) => `${l.name} ${l.bytes}`).join(', ') || 'none'}`);
   console.log(`stats: ${JSON.stringify(stats)}`);
   console.log(`licenses: ${licenses.map((l) => `${l.id ?? 'none'} ${l.count}`).join(', ') || 'none'}`);
-  console.log(`projects: ${projects.map((r) => r.full_name).join(', ') || 'none'}`);
+  console.log(`projects: ${recentProjects.map((r) => r.full_name).join(', ') || 'none'}`);
 }
 
 main().catch((error) => {
