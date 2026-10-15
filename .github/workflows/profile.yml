@@ -32,7 +32,21 @@ jobs:
         env:
           GITHUB_USER: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: node .github/scripts/build-profile-cards.mjs
+        run: |
+          if node .github/scripts/build-profile-cards.mjs > dist/card.log 2>&1; then
+            cat dist/card.log
+          else
+            {
+              echo "node: $(command -v node) $(node -v 2>&1)"
+              echo "pwd: $(pwd)"
+              echo "script: $(ls -l .github/scripts/ 2>&1)"
+              echo "dist: $(ls -l dist/ 2>&1)"
+              echo "--- node output ---"
+              cat dist/card.log
+            } >> dist/card.log
+            cat dist/card.log
+            exit 1
+          fi
 
       - name: Push to output branch
         if: always()
