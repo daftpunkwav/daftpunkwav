@@ -66,13 +66,21 @@ Lets AI search the web: several search providers behind one tool, falling back t
 | **Rust** | ![tokio](https://img.shields.io/badge/tokio-444C56?style=flat-square&logo=tokio&logoColor=white&v=2) ![axum](https://img.shields.io/badge/axum-444C56?style=flat-square) ![chromiumoxide](https://img.shields.io/badge/chromiumoxide-444C56?style=flat-square&v=2) ![tree-sitter](https://img.shields.io/badge/tree--sitter-444C56?style=flat-square) ![reqwest](https://img.shields.io/badge/reqwest-444C56?style=flat-square) |
 | **Tooling** | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) ![GitHub_Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black) ![GNU_Bash](https://img.shields.io/badge/GNU_Bash-4EAA25?style=flat-square&logo=gnubash&logoColor=white) ![uv](https://img.shields.io/badge/uv-DE5FE9?style=flat-square&v=2) ![pnpm](https://img.shields.io/badge/pnpm-F9AD00?style=flat-square&logo=pnpm&logoColor=black&v=2) ![xmake](https://img.shields.io/badge/xmake-444C56?style=flat-square) ![Ruff](https://img.shields.io/badge/Ruff-261230?style=flat-square&logo=ruff&logoColor=white) ![mypy](https://img.shields.io/badge/mypy-444C56?style=flat-square) ![tsc](https://img.shields.io/badge/tsc-3178C6?style=flat-square&logo=typescript&logoColor=white) ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white) ![Clippy](https://img.shields.io/badge/Clippy-DEA584?style=flat-square&logo=rust&logoColor=black) ![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest&logoColor=white) ![vitest](https://img.shields.io/badge/vitest-6E9F18?style=flat-square&logo=vitest&logoColor=white) ![import-linter](https://img.shields.io/badge/import--linter-444C56?style=flat-square) ![k6](https://img.shields.io/badge/k6-7D64FF?style=flat-square&logo=k6&logoColor=white) ![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=flat-square) ![Codex](https://img.shields.io/badge/Codex-412991?style=flat-square) ![Claude](https://img.shields.io/badge/Claude-D97757?style=flat-square&logo=claude&logoColor=white) ![dsh](https://img.shields.io/badge/dsh-444C56?style=flat-square) ![CodeRabbit](https://img.shields.io/badge/CodeRabbit-FF570A?style=flat-square&logo=coderabbit&logoColor=white) ![Sourcery](https://img.shields.io/badge/Sourcery-444C56?style=flat-square) ![CodeQL](https://img.shields.io/badge/CodeQL-444C56?style=flat-square) |
 
+### 📊 Stats
+
 <p align="center">
-  <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-languages.en.svg" alt="most used languages" width="450">
+  <a href="https://github.com/daftpunkwav?tab=repositories">
+    <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-languages.en.svg" alt="most used languages" width="48%">
+  </a>
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-stats.en.svg" alt="repository and contribution" width="450">
-  <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.en.svg" alt="recently active projects" width="450">
+  <a href="https://github.com/daftpunkwav/daftpunkwav/commits/main">
+    <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-stats.en.svg" alt="repository and contribution" width="48%">
+  </a>
+  <a href="https://github.com/daftpunkwav?tab=repositories&sort=updated">
+    <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.en.svg" alt="recently active projects" width="48%">
+  </a>
 </p>
 
 ### ✉️ Contact
