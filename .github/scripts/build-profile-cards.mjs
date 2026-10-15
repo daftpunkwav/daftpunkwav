@@ -355,7 +355,9 @@ async function main() {
   console.log(`projects: ${projects.map((r) => r.full_name).join(', ') || 'none'}`);
 }
 
-main().catch((error) => {
+main().catch(async (error) => {
   console.error(error);
+  await mkdir(OUT_DIR, { recursive: true });
+  await writeFile(path.join(OUT_DIR, 'build-error.txt'), `node ${process.version}\ncwd ${process.cwd()}\nnode_path ${process.execPath}\n\n${error?.stack ?? error}\n`, 'utf8');
   process.exitCode = 1;
 });

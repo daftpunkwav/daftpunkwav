@@ -35,6 +35,7 @@ jobs:
         run: node .github/scripts/build-profile-cards.mjs
 
       - name: Push to output branch
+        if: always()
         uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: output
