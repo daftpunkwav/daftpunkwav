@@ -16,8 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      # Both steps write into dist/, so they must stay in a single job: a second
-      # workflow pushing the same output branch would race this one.
+      # Public repositories are not checked out automatically, and the card
+      # script lives in this repository. Both steps below write into dist/, so
+      # they must stay in a single job: a second workflow pushing the same
+      # output branch would race this one.
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       # light: audio VU meter, green to red, synth-purple snake
       # dark: F1 night-race brake glow, dark to hot orange, F1-red snake
       - name: Generate snake SVGs
@@ -32,22 +37,10 @@ jobs:
         env:
           GITHUB_USER: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if node .github/scripts/build-profile-cards.mjs > dist/card.log 2>&1; then
-            cat dist/card.log
-          else
-            {
-              echo "node: $(command -v node) $(node -v 2>&1)"
-              echo "pwd: $(pwd)"
-              echo "script: $(ls -l .github/scripts/ 2>&1)"
-              echo "dist: $(ls -l dist/ 2>&1)"
-              echo "--- node output ---"
-              cat dist/card.log
-            } >> dist/card.log
-            cat dist/card.log
-            exit 1
-          fi
+        run: node .github/scripts/build-profile-cards.mjs
 
+      # Keep the snake publishing even if card generation fails; the job still
+      # reports the failure.
       - name: Push to output branch
         if: always()
         uses: crazy-max/ghaction-github-pages@v4
