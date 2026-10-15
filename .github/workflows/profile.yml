@@ -1,4 +1,4 @@
-name: Generate contribution snake
+name: Update profile assets
 
 on:
   schedule:
@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      # Both steps write into dist/, so they must stay in a single job: a second
+      # workflow pushing the same output branch would race this one.
       # light: audio VU meter, green to red, synth-purple snake
       # dark: F1 night-race brake glow, dark to hot orange, F1-red snake
       - name: Generate snake SVGs
@@ -25,6 +27,12 @@ jobs:
           outputs: |
             dist/github-contribution-grid-snake.svg?color_snake=%23a371f7&color_dots=%23ebedf0,%239be9a8,%232ea043,%23e3b341,%23f85149
             dist/github-contribution-grid-snake-dark.svg?color_snake=%2322d3ee&color_dots=%230d1117,%231e1b4b,%236d28d9,%23c026d3,%23f0abfc
+
+      - name: Generate profile cards
+        env:
+          GITHUB_USER: ${{ github.repository_owner }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/build-profile-cards.mjs
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
