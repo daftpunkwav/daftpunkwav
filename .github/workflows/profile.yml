@@ -37,6 +37,9 @@ jobs:
         env:
           GITHUB_USER: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # voyager-beta commits ~416 MB of vendored C, which otherwise makes the
+          # language card 93% "C" and tells nobody anything.
+          EXCLUDE_REPOS: voyager-beta
         run: node .github/scripts/build-profile-cards.mjs
 
       # Keep the snake publishing even if card generation fails; the job still

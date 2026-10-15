@@ -6,6 +6,8 @@
  *   profile-projects.<locale>.svg    repositories pushed to most recently
  *
  * Star counts are intentionally not collected: the profile does not track them.
+ * Repositories listed in EXCLUDE_REPOS are skipped entirely: Linguist byte counts
+ * are dominated by vendored code, which is not what "most used languages" means.
  * Zero dependencies, Node 18+ (global fetch). Run by .github/workflows/profile.yml.
  */
 
@@ -18,6 +20,9 @@ const OUT_DIR = process.env.OUT_DIR || 'dist';
 const TOP_LANGUAGES = Number(process.env.TOP_LANGUAGES || 6);
 const TOP_PROJECTS = Number(process.env.TOP_PROJECTS || 4);
 const INCLUDE_FORKED = process.env.INCLUDE_FORKED === 'true';
+const EXCLUDED_REPOS = new Set(
+  (process.env.EXCLUDE_REPOS || '').split(',').map((name) => name.trim().toLowerCase()).filter(Boolean),
+);
 const API = 'https://api.github.com';
 
 const ONE_YEAR_AGO = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
@@ -322,7 +327,7 @@ async function main() {
   if (!USER) throw new Error('GITHUB_USER is not set');
 
   const allRepos = await fetchRepos();
-  const repos = allRepos.filter((repo) => (INCLUDE_FORKED || !repo.fork) && !repo.archived);
+  const repos = allRepos.filter((repo) => !EXCLUDED_REPOS.has(repo.name.toLowerCase()) && !EXCLUDED_REPOS.has(repo.full_name.toLowerCase()) && (INCLUDE_FORKED || !repo.fork) && !repo.archived);
   // The profile repository itself carries no code and is never worth showing.
   const codeRepos = repos.filter((repo) => repo.name.toLowerCase() !== USER.toLowerCase());
 
