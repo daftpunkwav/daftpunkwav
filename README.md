@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1200&center=true&vCenter=true&width=560&height=44&lines=LLM+Agents+%C2%B7+RAG+%C2%B7+Streaming+%C2%B7+Evals;Python+%C2%B7+TypeScript+%C2%B7+Go+%C2%B7+Rust" alt="typing">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1200&center=true&vCenter=true&width=700&height=44&lines=LLM+Agents+%C2%B7+RAG+%C2%B7+Streaming+%C2%B7+Evals+%C2%B7+Tools+%C2%B7+Memory;Python+%C2%B7+TypeScript+%C2%B7+C%23+%C2%B7+Go+%C2%B7+C/C%2B%2B+%C2%B7+Rust" alt="typing">
 </p>
 
 ---
@@ -17,7 +17,7 @@
 
 喜欢动手把想法做成能用的东西。最感兴趣的方向是让 AI 不止于聊天，而是能自己规划步骤、使用工具、从错误里恢复，把一件事从头做到尾。围绕这件事，我陆续把一个 Agent 需要的零件都造了一遍：执行循环、多 Agent 协作、记忆与检索、评测与对照实验，还有那些不显眼但决定它能跑多久的底层组件，比如限流、熔断、幂等认领。
 
-写代码我用 AI，但翻翻我的 PR 和 commit 就知道，门禁卡得非常严，边界情况、韧性、健壮性这些我盯得最紧。前前后后用过的 Agent 不下三十个：codex、claude、pi、cursor、devin、opencode、dsh、omp、cline、aider、grok build、Kimi Code、MiniMax Code、zcode、TRAE SOLO、Qoder、Xiaomi MiMo、Antigravity、lobehub、hermes、crush、codewhale、deepcode、goose、resonix、workboddy……感受很多，但是这里空间太小了，写不下。前后端都写，Python 和 TypeScript 是主力，也喜欢用 Go 和 Rust 写贴近系统层面的东西。
+写代码我用 AI，但翻翻我的 PR 和 commit 就知道，门禁卡得非常严，边界情况、韧性、健壮性这些我盯得最紧。前前后后用过的 Agent 不下三十个：codex、claude、pi、cursor、devin、opencode、dsh、omp、cline、aider、grok build、Kimi Code、MiniMax Code、zcode、TRAE SOLO、Qoder、Xiaomi MiMo、Antigravity、lobehub、hermes、crush、codewhale、deepcode、goose、resonix、workboddy……感受很多，但是这里空间太小了，写不下。前后端都写，Python 和 TypeScript 是主力，Go 和 Rust 用来写贴近系统层面的东西，C# 和 C/C++ 也都写过。
 
 竞速和音乐是另外两个爱好。F1、MotoGP、GT 这类比赛我都追；听 House 和 Trance，Kygo、Deadmau5、Eric Prydz、Daft Punk 这些听得最多。自己也做过音乐，FL Studio、Ableton Live、Cubase 都用过，以后想做一个自己的插件，混响或者合成器都行。游戏玩得多，Agent 火起来之前我就在试着自己做游戏，后来发现做 Agent 比做游戏还上瘾，就一路做到现在。
 
