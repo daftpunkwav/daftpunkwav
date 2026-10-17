@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1200&center=true&vCenter=true&width=560&height=44&lines=LLM+Agents+%C2%B7+RAG+%C2%B7+Streaming+%C2%B7+Evals;Python+%C2%B7+TypeScript+%C2%B7+Go+%C2%B7+Rust" alt="typing">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=20&pause=1200&center=true&vCenter=true&width=700&height=44&lines=LLM+Agents+%C2%B7+RAG+%C2%B7+Streaming+%C2%B7+Evals+%C2%B7+Tools+%C2%B7+Memory;Python+%C2%B7+TypeScript+%C2%B7+C%23+%C2%B7+Go+%C2%B7+C/C%2B%2B+%C2%B7+Rust" alt="typing">
 </p>
 
 ---
@@ -17,7 +17,7 @@
 
 I like building things that actually work. What interests me most is making AI more than a chat box: getting it to plan steps, use tools, recover from mistakes, and carry a task from start to finish. Around that idea I have built, piece by piece, the parts an agent needs: execution loops, multi-agent coordination, memory and retrieval, evaluation and side-by-side experiments, plus the quiet components underneath that decide how long it keeps running, like rate limiting, circuit breaking, and idempotent claims.
 
-I write code with AI, but my PRs and commit history show the habit: I keep the gates strict, and edge cases, resilience, and robustness are what I watch closest. I have been through thirty-plus agents so far: codex, claude, pi, cursor, devin, opencode, dsh, omp, cline, aider, grok build, Kimi Code, MiniMax Code, zcode, TRAE SOLO, Qoder, Xiaomi MiMo, Antigravity, lobehub, hermes, crush, codewhale, deepcode, goose, resonix, workboddy... plenty of opinions, but this page is too small to hold them. I write both frontend and backend, mostly in Python and TypeScript, and I enjoy Go and Rust for things closer to the system level.
+I write code with AI, but my PRs and commit history show the habit: I keep the gates strict, and edge cases, resilience, and robustness are what I watch closest. I have been through thirty-plus agents so far: codex, claude, pi, cursor, devin, opencode, dsh, omp, cline, aider, grok build, Kimi Code, MiniMax Code, zcode, TRAE SOLO, Qoder, Xiaomi MiMo, Antigravity, lobehub, hermes, crush, codewhale, deepcode, goose, resonix, workboddy... plenty of opinions, but this page is too small to hold them. I write both frontend and backend, mostly in Python and TypeScript, with Go and Rust for things closer to the system level, and C# and C/C++ as well.
 
 Racing and music are my other two hobbies. I follow F1, MotoGP, and GT racing. I listen to house and trance, with Kygo, Deadmau5, Eric Prydz, and Daft Punk in heaviest rotation. I have made some music of my own in FL Studio, Ableton Live, and Cubase, and someday I want to build my own plugin, a reverb or a synth. I play a lot of games, and before agents took off I was trying to make one. Then I found building agents even more addictive than building games, and I have been at it since.
 
