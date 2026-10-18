@@ -23,15 +23,19 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # light: audio VU meter, green to red, synth-purple snake
-      # dark: F1 night-race brake glow, dark to hot orange, F1-red snake
+      # colour_dots is level 0 (empty) first, then levels 1-4, so the snake only
+      # ever has to stay clear of the four activity colours.
+      # light: cyberpunk — teal to violet activity, hot-pink snake
+      # dark: synthwave — violet to neon-yellow activity, cyan snake
+      # soft dark reuses the dark SVG: a README <picture> only takes media
+      # queries, and GitHub strips <style>, so dark_dimmed cannot be targeted.
       - name: Generate snake SVGs
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=%23a371f7&color_dots=%23ebedf0,%239be9a8,%232ea043,%23e3b341,%23f85149
-            dist/github-contribution-grid-snake-dark.svg?color_snake=%2322d3ee&color_dots=%230d1117,%231e1b4b,%236d28d9,%23c026d3,%23f0abfc
+            dist/github-contribution-grid-snake.svg?color_snake=%23db2777&color_dots=%23e6edf3,%230e7490,%231d4ed8,%236d28d9,%2386198f
+            dist/github-contribution-grid-snake-dark.svg?color_snake=%2300f5d4&color_dots=%231a1033,%235b3a9e,%23c026d3,%23ff2e97,%23ffd166
 
       - name: Generate profile cards
         env:
