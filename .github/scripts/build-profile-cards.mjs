@@ -70,7 +70,7 @@ const LOCALE = {
     projects: 'Recently Active Projects',
     labels: {
       publicRepos: 'Public repositories',
-      ownRepos: 'Non-fork repositories',
+      issues: 'Issues - 12 months',
       commits: 'Commits - 12 months',
       mergedPrs: 'Merged PRs - 12 months',
     },
@@ -84,7 +84,7 @@ const LOCALE = {
     projects: '最近在做的项目',
     labels: {
       publicRepos: '公开仓库',
-      ownRepos: '非 fork 仓库',
+      issues: '近一年提出的 issue',
       commits: '近一年提交',
       mergedPrs: '近一年合并的 PR',
     },
@@ -275,7 +275,7 @@ function statsCard(stats, t, theme) {
 
   const tiles = [
     { value: stats.publicRepos, label: t.labels.publicRepos },
-    { value: stats.ownRepos, label: t.labels.ownRepos },
+    { value: stats.issues, label: t.labels.issues },
     { value: stats.commits, label: t.labels.commits },
     { value: stats.mergedPrs, label: t.labels.mergedPrs },
   ];
@@ -369,15 +369,17 @@ async function main() {
   // totals while saying nothing about which languages the account is written in.
   const languageRepos = projects.filter(kept);
 
-  const [languages, commits, mergedPrs] = await Promise.all([
+  const [languages, commits, mergedPrs, issues] = await Promise.all([
     fetchLanguages(languageRepos),
     fetchCommitCount(ownedRepos),
     countSearch(`author:${USER} is:pr merged:>=${SINCE_DATE}`),
+    // "is:issue" excludes pull requests, so this counts only issues opened.
+    countSearch(`author:${USER} is:issue created:>=${SINCE_DATE}`),
   ]);
 
   const stats = {
     publicRepos: allRepos.length,
-    ownRepos: ownedRepos.length,
+    issues,
     commits,
     mergedPrs,
   };
