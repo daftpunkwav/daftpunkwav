@@ -28,7 +28,9 @@ jobs:
       # and level 1 dwarfs 2-4, so the empty and level-1 colours are what carry
       # the theme; levels 3-4 are almost never reached.
       # light: cyberpunk — cyan to fuchsia activity, hot-pink snake
-      # dark: synthwave — magenta to neon-yellow sunset, cyan snake
+      # dark: synthwave — violet to sunset-orange gradient, cyan snake; the
+      # empty cell sits in the same violet family so the grid reads as one
+      # continuous arc instead of a cold block next to hot dots
       # soft dark reuses the dark SVG: a README <picture> only takes media
       # queries, and GitHub strips <style>, so dark_dimmed cannot be targeted.
       - name: Generate snake SVGs
@@ -37,7 +39,7 @@ jobs:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
             dist/github-contribution-grid-snake.svg?color_snake=%23db2777&color_dots=%23e2e8f2,%230891b2,%232563eb,%239333ea,%23c026d3
-            dist/github-contribution-grid-snake-dark.svg?color_snake=%2300f5d4&color_dots=%234d4a80,%23a21caf,%23ff2e97,%23ffb347,%23f9f71d
+            dist/github-contribution-grid-snake-dark.svg?color_snake=%2300f5d4&color_dots=%233a2a6d,%236d28d9,%23c026d3,%23ff2e97,%23ffb03a
 
       - name: Generate profile cards
         env:
