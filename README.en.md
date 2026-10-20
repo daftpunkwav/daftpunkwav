@@ -15,15 +15,15 @@
 
 ### 🧭 About
 
-I like building things that actually work. Most of my time has gone into AI agents lately: getting one to plan steps, call tools, and pick itself back up after an error, instead of needing a human at every turn. When something gets in the way I write the code myself, and that is where the projects below came from — from a coding assistant that can resume where it stopped, to an LLM gateway with rate limiting and circuit breaking, to a tool for comparing agent setups side by side.
+I like building things that actually work. Over the last two years most of my time has gone into AI agents: getting one to plan steps, call tools, and pick itself back up after an error, instead of needing a human at every turn. When something gets in the way I write the code myself, and that is where the projects below came from: a coding assistant that can resume where it stopped, an LLM gateway with rate limiting and circuit breaking, a tool for comparing agent setups side by side.
 
-I do use AI to write code, but my PRs and commit history show the gates are strict: type checks, architecture boundaries, failure-recovery tests — the things that should be there are there.
+I do use AI to write code, but my PRs and commit history show the gates are strict: type checks, architecture boundaries, and failure-recovery tests are all there.
 
-I have been through thirty-plus agents, mainstream and experimental alike. Plenty of opinions, too many to fit on this page, so I wrote one page per tool: [agent usage notes](./notes/agents/). Better known ones include Claude Code, Codex CLI, pi, Cursor, OpenCode, dsh, Grok Build, and Kimi Code.
+I have been through thirty-plus agents, mainstream and experimental alike. Plenty of opinions, too many to fit on this page, so I wrote one page per tool, such as Claude Code, Codex CLI, pi, Cursor, OpenCode, dsh, Grok Build, Kimi Code...: [agent usage notes](./notes/agents/).
 
-Python and TypeScript are what I write most; Go and Rust come up too, and I have done some C# and C/C++.
+Most of what I write is in Python and TypeScript; Go, C/C++, and Rust come up too. C# is probably my favourite.
 
-Racing and music are my other two hobbies. I follow F1, MotoGP, and GT racing. I listen to house and trance, with Kygo, Deadmau5, Eric Prydz, and Daft Punk in heaviest rotation. I have made some music of my own in FL Studio, Ableton Live, and Cubase, and someday I want to build my own plugin, a reverb or a synth. I play a lot of games, and before agents took off I was trying to make one. Then I found building agents even more addictive than building games, and I have been at it since.
+Racing and music are my other two hobbies. I follow F1, MotoGP, and GT racing. I listen to house and trance, with Kygo, Deadmau5, Eric Prydz, and Daft Punk in heaviest rotation. I have made some music of my own in FL Studio, Ableton Live, and Cubase, and someday I want to build my own plugin, a reverb, a compressor, or a synth. I play a lot of games, and before agents took off I was trying to make one. Then I found building agents more interesting than building games, and have been at it ever since.
 
 Most of these projects started from a real need of my own and grew from there. I am still learning new things all the time, turning my own ideas into working software, and I hope to hear honest feedback from real users.
 
@@ -32,7 +32,7 @@ Most of these projects started from a real need of my own and grew from there. I
 | Project | What it is | How it works | Stack |
 | :--- | :--- | :--- | :--- |
 | **[real-mock](https://github.com/daftpunkwav/real-mock)** | Resume review plus a realistic voice interview loop | The interview runs on a state machine, and each step ends by compressing the transcript into a structured summary; the resume is scored on 12 dimensions, with PDFs rendered to images for the model to read; a WebSocket room for the live conversation, and the coding part runs Python right in the browser | `Next.js` `FastAPI` `WebSocket` `ChromaDB` `faster-whisper` |
-| **[voyager](https://github.com/daftpunkwav/voyager)** | A local-first workbench humans and agents share | One capability registration is exposed three ways — in-process calls, REST, and MCP — and a human and an agent walk the same auth, quota, and audit chain; the event log is the single source of truth, and it can be replayed | `FastAPI` `React` `SQLite` `import-linter` |
+| **[voyager](https://github.com/daftpunkwav/voyager)** | A local-first workbench humans and agents share | One capability registration is exposed three ways (in-process calls, REST, and MCP), and a human and an agent walk the same auth, quota, and audit chain; the event log is the single source of truth, and it can be replayed | `FastAPI` `React` `SQLite` `import-linter` |
 | **[agent-prism](https://github.com/daftpunkwav/agent-prism)** | A lab for comparing agent setups | 16 dimensions, one variable changed at a time, ten frameworks running side by side with the process streamed out; a deterministic checker decides the outcome, so picking a framework is not a matter of taste | `TypeScript` `Hono` `SSE` `Zod` |
 | **[wave-code](https://github.com/daftpunkwav/wave-code)** | A coding assistant built for long stretches of work | The core is a single ReAct loop; task state is written to a local journal so a run can pick up where it stopped; whether the work landed is decided by the state of the workspace, not by the model's own word; with no sandbox backend available it refuses to run | `Rust` `MCP` `tokio` `tree-sitter` |
 | **[breakwater](https://github.com/daftpunkwav/breakwater)** | A multi-protocol LLM gateway | One codebase speaks OpenAI Chat, OpenAI Responses, and Anthropic Messages; rate limiting is a token bucket, circuit breaking has three strategies, and a failed upstream is switched away from automatically; quota is tracked with leases | `Go` `Redis` `PostgreSQL` `k6` |
@@ -44,8 +44,8 @@ Most of these projects started from a real need of my own and grew from there. I
 
 I did not want to leave it at "I have used it", so the details live here:
 
-- **[Agent usage notes](./notes/agents/)** — one page per agent tool: what shape it is, how it is built, what I use it for, and when I reach for it. (Chinese)
-- **[Notes on techniques and concepts](./notes/concepts/)** — my own read on the specific choices: resumable execution, idempotent claims, human-in-the-loop, rate limiting and circuit breaking, streaming-first, MCP as a tool contract, parallel A/B tests, shared primitives for humans and agents, context budgets. (Chinese)
+- **[Agent usage notes](./notes/agents/)**: one page per agent tool: what shape it is, how it is built, what I use it for, and when I reach for it. (Chinese)
+- **[Notes on techniques and concepts](./notes/concepts/)**: my own read on the specific choices: resumable execution, idempotent claims, human-in-the-loop, rate limiting and circuit breaking, streaming-first, MCP as a tool contract, parallel A/B tests, shared primitives for humans and agents, context budgets. (Chinese)
 
 ### 🧰 Tech Stack
 
