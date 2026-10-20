@@ -15,43 +15,36 @@
 
 ### 🧭 About
 
-I like building things that actually work. What interests me most is making AI more than a chat box: getting it to plan steps, use tools, recover from mistakes, and carry a task from start to finish. Around that idea I have built, piece by piece, the parts an agent needs: **execution loops**, **multi-agent coordination**, **memory and retrieval**, **evaluation and side-by-side experiments**, plus the quiet components underneath that decide how long it keeps running, like **rate limiting**, **circuit breaking**, and **idempotent claims**.
+I like building things that actually work. Most of my time has gone into AI agents lately: getting one to plan steps, call tools, and pick itself back up after an error, instead of needing a human at every turn. When something gets in the way I write the code myself, and that is where the projects below came from — from a coding assistant that can resume where it stopped, to an LLM gateway with rate limiting and circuit breaking, to a tool for comparing agent setups side by side.
 
-I write code with AI, but my PRs and commit history show the habit: the gates are strict — **static types across the stack**, **architecture-boundary linters**, **failure-recovery tests** — and edge cases, resilience, and robustness are what I watch closest.
+I do use AI to write code, but my PRs and commit history show the gates are strict: type checks, architecture boundaries, failure-recovery tests — the things that should be there are there.
 
-I have been through thirty-plus agents so far, mainstream and experimental alike. Plenty of opinions, but this page is too small to hold them, so I wrote one page per tool: [agent usage notes](./notes/agents/). The eight I reach for most are Claude Code, Codex CLI, pi, Cursor, OpenCode, dsh, Grok Build, and Kimi Code.
+I have been through thirty-plus agents, mainstream and experimental alike. Plenty of opinions, too many to fit on this page, so I wrote one page per tool: [agent usage notes](./notes/agents/). Better known ones include Claude Code, Codex CLI, pi, Cursor, OpenCode, dsh, Grok Build, and Kimi Code.
 
-I write both frontend and backend, mostly in Python and TypeScript, with Go and Rust for things closer to the system level, and C# and C/C++ as well.
+Python and TypeScript are what I write most; Go and Rust come up too, and I have done some C# and C/C++.
 
 Racing and music are my other two hobbies. I follow F1, MotoGP, and GT racing. I listen to house and trance, with Kygo, Deadmau5, Eric Prydz, and Daft Punk in heaviest rotation. I have made some music of my own in FL Studio, Ableton Live, and Cubase, and someday I want to build my own plugin, a reverb or a synth. I play a lot of games, and before agents took off I was trying to make one. Then I found building agents even more addictive than building games, and I have been at it since.
 
-Most of these projects started from a real need of my own and grew from there. I want to keep learning new things and turning my own ideas into working software, and I hope to hear honest feedback from real users.
+Most of these projects started from a real need of my own and grew from there. I am still learning new things all the time, turning my own ideas into working software, and I hope to hear honest feedback from real users.
 
 ### 🚀 Projects
 
-#### ⚙️ Agent runtime and infrastructure
-
 | Project | What it is | How it works | Stack |
 | :--- | :--- | :--- | :--- |
-| **[wave-code](https://github.com/daftpunkwav/wave-code)** | A coding assistant built for long stretches of work | One ReAct loop with trait seams that invert the dependencies; a block-level write-ahead journal makes long tasks resumable, and **whether the work actually landed is decided by assertions on the workspace, not by the model's own word**; when no OS sandbox backend is available it refuses to run | `Rust` `MCP` `tokio` `tree-sitter` |
-| **[breakwater](https://github.com/daftpunkwav/breakwater)** | A multi-protocol LLM gateway | One pipeline serves OpenAI Chat, OpenAI Responses, and Anthropic Messages on the wire; token-bucket rate limiting (RPM + TPM), three circuit-breaker strategies with failover, and lease-based quota accounting — with **rate limiting, breaking, and request de-duplication all hand-built and enforced by lint rules** | `Go` `Redis` `PostgreSQL` `k6` |
-| **[rutter](https://github.com/daftpunkwav/rutter)** | A real browser for AI agents | 25 browser tools over MCP; the page is trimmed into a budgeted accessibility tree with collision-proof stable refs, and **sensitive actions are judged host-side** and wait for a human to approve | `Rust` `CDP` `MCP` `chromiumoxide` |
-| **[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** | A multi-source web search MCP server | One tool folds several providers together, falling back in series or querying in parallel and merging results; **a cancelled client and a failed upstream are modelled as two different outcomes**, not one | `TypeScript` `MCP` |
-
-#### 🖥️ Agent evaluation and full-stack applications
-
-| Project | What it is | How it works | Stack |
-| :--- | :--- | :--- | :--- |
-| **[real-mock](https://github.com/daftpunkwav/real-mock)** | Resume review plus a realistic voice interview loop | An interview state machine with compaction at step boundaries, and a 12-dimension resume review that reads PDFs visually; a WebSocket interview room, with Python running right in the browser for the coding part | `Next.js` `FastAPI` `WebSocket` `ChromaDB` `faster-whisper` |
-| **[voyager](https://github.com/daftpunkwav/voyager)** | A local-first workbench humans and agents share | One capability registration projects into in-process calls, REST, and MCP, and **a human and an agent walk the same auth → quota → validation → audit chain**; a replayable event log is the single source of truth | `FastAPI` `React` `SQLite` `import-linter` |
-| **[agent-prism](https://github.com/daftpunkwav/agent-prism)** | A lab for comparing agent setups | Sixteen dimensions routed one variable at a time, ten heterogeneous frameworks running side by side under one event protocol; deterministic checks plus reflection feedback, so **picking a framework or tuning a strategy is a data question, not a gut feeling** | `TypeScript` `Hono` `SSE` `Zod` |
-| **[re-resume](https://github.com/daftpunkwav/re-resume)** · WIP | A local-first resume workbench | A Tauri 2 desktop app with an experience library, versioned documents, and undo/redo; layout is a pure function shared by the canvas and the agent, and **the agent's write access is capped at the type level** | `Tauri 2` `React` `SQLite` `Rust` `Zod` |
+| **[real-mock](https://github.com/daftpunkwav/real-mock)** | Resume review plus a realistic voice interview loop | The interview runs on a state machine, and each step ends by compressing the transcript into a structured summary; the resume is scored on 12 dimensions, with PDFs rendered to images for the model to read; a WebSocket room for the live conversation, and the coding part runs Python right in the browser | `Next.js` `FastAPI` `WebSocket` `ChromaDB` `faster-whisper` |
+| **[voyager](https://github.com/daftpunkwav/voyager)** | A local-first workbench humans and agents share | One capability registration is exposed three ways — in-process calls, REST, and MCP — and a human and an agent walk the same auth, quota, and audit chain; the event log is the single source of truth, and it can be replayed | `FastAPI` `React` `SQLite` `import-linter` |
+| **[agent-prism](https://github.com/daftpunkwav/agent-prism)** | A lab for comparing agent setups | 16 dimensions, one variable changed at a time, ten frameworks running side by side with the process streamed out; a deterministic checker decides the outcome, so picking a framework is not a matter of taste | `TypeScript` `Hono` `SSE` `Zod` |
+| **[wave-code](https://github.com/daftpunkwav/wave-code)** | A coding assistant built for long stretches of work | The core is a single ReAct loop; task state is written to a local journal so a run can pick up where it stopped; whether the work landed is decided by the state of the workspace, not by the model's own word; with no sandbox backend available it refuses to run | `Rust` `MCP` `tokio` `tree-sitter` |
+| **[breakwater](https://github.com/daftpunkwav/breakwater)** | A multi-protocol LLM gateway | One codebase speaks OpenAI Chat, OpenAI Responses, and Anthropic Messages; rate limiting is a token bucket, circuit breaking has three strategies, and a failed upstream is switched away from automatically; quota is tracked with leases | `Go` `Redis` `PostgreSQL` `k6` |
+| **[rutter](https://github.com/daftpunkwav/rutter)** | A real browser for AI agents | 25 browser tools over MCP; the page is trimmed against a character budget before the model sees it, so the cost does not keep growing with page length; sensitive actions are stopped host-side and wait for a human | `Rust` `CDP` `MCP` `chromiumoxide` |
+| **[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** | A multi-source web search MCP server | One tool covers several search providers: it can fall back one by one, or query them all at once and merge with de-duplication; a cancelled client and a failed upstream are two different outcomes, and they are reported separately | `TypeScript` `MCP` |
+| **[re-resume](https://github.com/daftpunkwav/re-resume)** · WIP | A local-first resume workbench | A Tauri 2 desktop app with an experience library, document versions, and undo/redo; layout is a pure function, so the canvas and the agent work off the same result; what the agent is allowed to write is fixed by the types | `Tauri 2` `React` `SQLite` `Rust` `Zod` |
 
 ### 📝 Notes
 
-I did not want to leave it at "I have used it", so there is a directory for the details:
+I did not want to leave it at "I have used it", so the details live here:
 
-- **[Agent usage notes](./notes/agents/)** — one page per agent tool: what shape it is, what it is built like, what I use it for, and when I reach for it. (Chinese)
+- **[Agent usage notes](./notes/agents/)** — one page per agent tool: what shape it is, how it is built, what I use it for, and when I reach for it. (Chinese)
 - **[Notes on techniques and concepts](./notes/concepts/)** — my own read on the specific choices: resumable execution, idempotent claims, human-in-the-loop, rate limiting and circuit breaking, streaming-first, MCP as a tool contract, parallel A/B tests, shared primitives for humans and agents, context budgets. (Chinese)
 
 ### 🧰 Tech Stack
@@ -84,6 +77,12 @@ I did not want to leave it at "I have used it", so there is a directory for the 
 </p>
 
 <p align="center">
+  <a href="https://github.com/daftpunkwav?tab=repositories">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-licenses.en-dark.svg">
+      <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-licenses.en-light.svg" alt="open source licenses" width="49%">
+    </picture>
+  </a>
   <a href="https://github.com/daftpunkwav?tab=repositories&sort=updated">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.en-dark.svg">

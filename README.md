@@ -15,43 +15,36 @@
 
 ### 🧭 关于我
 
-喜欢动手把想法做成能用的东西。最感兴趣的方向是让 AI 不止于聊天，而是能自己规划步骤、使用工具、从错误里恢复，把一件事从头做到尾。围绕这件事，我陆续把一个 Agent 需要的零件都造了一遍：**执行循环**、**多 Agent 协作**、**记忆与检索**、**评测与对照实验**，还有那些不显眼但决定它能跑多久的底层组件，比如**限流**、**熔断**、**幂等认领**。
+喜欢动手把想法做成能用的东西。这些年我的时间基本都花在 AI Agent 上：让它自己规划步骤、调用工具、出了错能接着干，而不是每一步都要人盯着。碰到的问题我自己写代码解决，于是攒下了下面这些项目——从能断点续跑的编程助手，到带限流熔断的模型网关，再到能并排比较不同 Agent 方案的评测工具。
 
-写代码我用 AI，但翻翻我的 PR 和 commit 就知道，门禁卡得非常严：**全链路静态类型检查**、**架构边界 Linter**、**故障恢复测试**，边界情况、韧性、健壮性这些我盯得最紧。
+写代码我用 AI 帮忙，但翻翻我的 PR 和 commit 就知道门禁卡得挺严：类型检查、架构边界、故障恢复这些该有的都有。
 
-前前后后用过的 Agent 不下三十个，主流的、实验性的都试过一遍。感受很多，但是这里空间太小了，写不下——所以我把每一个都单独记了一份：[Agent 使用记录](./notes/agents/)。最常用的八个是 Claude Code、Codex CLI、pi、Cursor、OpenCode、dsh、Grok Build、Kimi Code。
+用过的 Agent 三十多个，主流的、实验性的都试过一遍，感受很多，这里写不下，所以每个都单独记了一份：[Agent 使用记录](./notes/agents/)。这里面比较知名的有 Claude Code、Codex CLI、pi、Cursor、OpenCode、dsh、Grok Build、Kimi Code 这些。
 
-前后端都写，Python 和 TypeScript 是主力，Go 和 Rust 用来写贴近系统层面的东西，C# 和 C/C++ 也都写过。
+日常写得多的是 Python 和 TypeScript，Go 和 Rust 也用，C# 和 C/C++ 做过一些东西。
 
 竞速和音乐是另外两个爱好。F1、MotoGP、GT 这类比赛我都追；听 House 和 Trance，Kygo、Deadmau5、Eric Prydz、Daft Punk 这些听得最多。自己也做过音乐，FL Studio、Ableton Live、Cubase 都用过，以后想做一个自己的插件，混响或者合成器都行。游戏玩得多，Agent 火起来之前我就在试着自己做游戏，后来发现做 Agent 比做游戏还上瘾，就一路做到现在。
 
-项目大多从一个自己真实的需求开始，做着做着就长成了现在这个样子。想不停学新东西，然后把自己的想法做出来，也希望听到真实用户的反馈。
+项目大多从一个自己真实的需求开始，做着做着就长成了现在这个样子。我还在不停地学新东西，把自己的想法做出来，也希望听到真实用户的反馈。
 
 ### 🚀 项目
 
-#### ⚙️ Agent 运行时与底层基建
-
 | 项目 | 定位 | 核心机制 | 技术栈 |
 | :--- | :--- | :--- | :--- |
-| **[wave-code](https://github.com/daftpunkwav/wave-code)** | 长周期自主编程助手 | 单一 ReAct 循环配 trait seam 反转依赖；块级 write-ahead journal 让长任务可断点续跑，**干没干成不看模型自述，以工作区断言为准**；OS 围栏没有可用后端时直接拒绝运行 | `Rust` `MCP` `tokio` `tree-sitter` |
-| **[breakwater](https://github.com/daftpunkwav/breakwater)** | 多协议 LLM 网关 | 一条管线同时服务 OpenAI Chat / Responses / Anthropic Messages 三种协议；令牌桶限流（RPM+TPM）、三策略熔断与故障切换、额度按 lease 记账，**限流/熔断/去重全部自研并由 lint 规则强制** | `Go` `Redis` `PostgreSQL` `k6` |
-| **[rutter](https://github.com/daftpunkwav/rutter)** | 给 Agent 用的真实浏览器 | MCP 暴露 25 个浏览器工具，页面按渲染字符预算裁成无障碍树 + 防碰撞稳定引用；敏感操作在**宿主侧**拦截并等人确认 | `Rust` `CDP` `MCP` `chromiumoxide` |
-| **[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** | 多源联网搜索 MCP 服务 | 一个工具收敛多家通道，串行降级或并发聚合去重；**客户端取消与上游失败是两种不同的结果**，不混为一谈 | `TypeScript` `MCP` |
-
-#### 🖥️ Agent 评测与全栈应用
-
-| 项目 | 定位 | 核心机制 | 技术栈 |
-| :--- | :--- | :--- | :--- |
-| **[real-mock](https://github.com/daftpunkwav/real-mock)** | 简历解析 + 拟真语音面试闭环 | 面试流程状态机 + 步骤边界压缩，简历 12 维深度评价带 PDF 视觉转写；WebSocket 实时面试房，浏览器内直接跑 Python 考核 | `Next.js` `FastAPI` `WebSocket` `ChromaDB` `faster-whisper` |
-| **[voyager](https://github.com/daftpunkwav/voyager)** | 本地优先的人机共用工作台 | 一次 capability 注册投影成进程内调用 / REST / MCP 三套入口，**人和 Agent 走同一条鉴权-配额-校验-审计链**；可回放的事件日志是唯一事实源 | `FastAPI` `React` `SQLite` `import-linter` |
-| **[agent-prism](https://github.com/daftpunkwav/agent-prism)** | Agent 对照实验与评测平台 | 16 个维度做单变量路由，十种异构框架统一事件协议并排跑；确定性判据 + 反思回灌，**选框架、调策略不再靠感觉，而是靠数据** | `TypeScript` `Hono` `SSE` `Zod` |
-| **[re-resume](https://github.com/daftpunkwav/re-resume)** · WIP | 本地优先的简历工作台 | Tauri 2 桌面端，经历库 + 版本化文档 + 撤销重做；排版引擎是纯函数，画布与 Agent 共用同一份结果；**Agent 的写操作被限制在类型层** | `Tauri 2` `React` `SQLite` `Rust` `Zod` |
+| **[real-mock](https://github.com/daftpunkwav/real-mock)** | 简历解析 + 拟真语音面试闭环 | 面试按状态机走，每一步结束把对话压成结构化摘要；简历从 12 个维度评价，PDF 会转成图片让模型看；WebSocket 实时对话，编程题在浏览器里直接跑 Python | `Next.js` `FastAPI` `WebSocket` `ChromaDB` `faster-whisper` |
+| **[voyager](https://github.com/daftpunkwav/voyager)** | 本地优先的人机共用工作台 | 一个能力注册后同时接出进程内调用、REST 和 MCP 三套入口，人和 AI 走同一条鉴权、配额、审计链路；事件日志是唯一事实源，可以回放 | `FastAPI` `React` `SQLite` `import-linter` |
+| **[agent-prism](https://github.com/daftpunkwav/agent-prism)** | Agent 对照实验与评测平台 | 16 个维度一次只换一个变量，十种框架并排跑，过程流式输出；结论由自动判据给出，选框架不用凭感觉 | `TypeScript` `Hono` `SSE` `Zod` |
+| **[wave-code](https://github.com/daftpunkwav/wave-code)** | 长周期自主编程助手 | 核心是一个 ReAct 循环；任务状态记在本地 journal 里，断了能接着跑；做没做成看工作区的实际状态，不看模型自己怎么说；没有可用沙箱就直接拒绝运行 | `Rust` `MCP` `tokio` `tree-sitter` |
+| **[breakwater](https://github.com/daftpunkwav/breakwater)** | 多协议 LLM 网关 | 一套代码同时接 OpenAI Chat、OpenAI Responses 和 Anthropic Messages 三种协议；限流用令牌桶，熔断分三种策略，上游挂了能自动切换；额度按 lease 记账 | `Go` `Redis` `PostgreSQL` `k6` |
+| **[rutter](https://github.com/daftpunkwav/rutter)** | 给 Agent 用的真实浏览器 | 通过 MCP 提供 25 个浏览器工具；页面按字符预算裁剪后再交给模型，成本不随页面长度一直涨；敏感操作在宿主侧拦下来，等人确认 | `Rust` `CDP` `MCP` `chromiumoxide` |
+| **[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** | 多源联网搜索 MCP 服务 | 一个工具接多家搜索源，可以逐个降级，也可以并发查完再合并去重；客户端取消和上游失败是两回事，分别报 | `TypeScript` `MCP` |
+| **[re-resume](https://github.com/daftpunkwav/re-resume)** · WIP | 本地优先的简历工作台 | Tauri 2 桌面端，经历库、文档版本和撤销重做；排版是纯函数，画布和 AI 用同一份结果；AI 能写什么由类型定死 | `Tauri 2` `React` `SQLite` `Rust` `Zod` |
 
 ### 📝 笔记
 
-不想只留一句「用过」，所以另外开了一个目录放细节：
+不想只留一句「用过」，所以细节都放在这里：
 
-- **[Agent 使用记录](./notes/agents/)** —— 用过的 Agent 工具逐个介绍：它是什么形态、什么架构特点、我拿它干什么、什么情况下会打开它。
+- **[Agent 使用记录](./notes/agents/)** —— 用过的 Agent 工具逐个介绍：它是什么形态、怎么搭的、我拿它干什么、什么情况下会打开它。
 - **[技术与概念评述](./notes/concepts/)** —— 我对具体做法的判断：断点续跑、幂等认领、人工确认、限流熔断、流式优先、MCP 作为工具契约、并行对照实验、人机同权、上下文预算。
 
 ### 🧰 技术栈
@@ -84,6 +77,12 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/daftpunkwav?tab=repositories">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-licenses.zh-dark.svg">
+      <img src="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-licenses.zh-light.svg" alt="open source licenses" width="49%">
+    </picture>
+  </a>
   <a href="https://github.com/daftpunkwav?tab=repositories&sort=updated">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/daftpunkwav/daftpunkwav/output/profile-projects.zh-dark.svg">

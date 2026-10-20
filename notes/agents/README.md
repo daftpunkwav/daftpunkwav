@@ -4,9 +4,7 @@
 
 不排名、不打分，因为场景不同结论就不同；只记「在什么情况下我会打开它」。
 
-## 常用的八个
-
-日常真正在用的就这几个，其他都是尝鲜、对比或者特定场景下才会想起来。
+## 目录
 
 | 工具 | 归属 | 形态 | 我拿它干什么 |
 | :--- | :--- | :--- | :--- |
@@ -18,11 +16,6 @@
 | [dsh](dsh.md) | DeepSeek | 桌面 + Web GUI 的 harness | 一个界面统管后台任务、子代理和文件产出 |
 | [Grok Build](grok-build.md) | xAI | Rust harness + 全屏 TUI（开源） | 常驻式终端工作区，顺便看 Agent 之间怎么互相调用 |
 | [Kimi Code](kimi-code.md) | 月之暗面 | 终端 CLI（开源） | 国产模型路线 + Skills 体系的样本 |
-
-## 其余用过的
-
-| 工具 | 归属 | 形态 | 一句话 |
-| :--- | :--- | :--- | :--- |
 | [Devin](devin.md) | Cognition | 云端异步工单 | 把明确、可验收的活儿外包出去，不占本地资源 |
 | [omp](omp.md) | Stencil Labs | pi 的 IDE 增强版（开源） | 极简 Agent 底座 + IDE 打通 |
 | [Cline](cline.md) | 社区 | VS Code 扩展（开源） | Plan/Act 双模式、逐步批准的过程可见性 |
