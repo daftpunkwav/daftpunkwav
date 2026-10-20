@@ -34,4 +34,4 @@
 
 ## 落到我自己的项目
 
-- [voyager](https://github.com/daftpunkwav/voyager)：代码仓库、文档、笔记统一管理，UI 交互与 Agent 工具调用共享同一套底层原语。
+- [voyager](https://github.com/daftpunkwav/voyager)：代码仓库、文档、笔记统一管理，人和 Agent 走同一套 capability 和同一条鉴权、配额、审计链。

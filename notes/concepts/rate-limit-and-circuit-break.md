@@ -34,4 +34,4 @@
 
 ## 落到我自己的项目
 
-- [breakwater](https://github.com/daftpunkwav/breakwater)：站在应用和大模型之间的闸门：限流、上游故障自动切换、用量计费。
+- [breakwater](https://github.com/daftpunkwav/breakwater)：三种协议汇进同一条治理管线：令牌桶限流、三策略熔断按候选顺序切换上游、额度按 lease 记账。

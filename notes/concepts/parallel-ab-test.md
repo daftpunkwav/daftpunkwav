@@ -27,4 +27,4 @@ Agent 的输出有随机性，所以对照实验有三个必须处理的细节�
 
 ## 落到我自己的项目
 
-- [agent-prism](https://github.com/daftpunkwav/agent-prism)：同一个问题驱动十种 Agent 方案并发作答，流式并排展示推理过程，用量化数据指导框架选型与策略调优。
+- [agent-prism](https://github.com/daftpunkwav/agent-prism)：16 个内建维度一次只换一个变量，十种驱动并排流式跑，报告给出耗时、token、工具调用和消融对比。

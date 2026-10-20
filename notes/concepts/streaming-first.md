@@ -31,5 +31,5 @@ Agent 的等待时间比普通接口长一个量级：如果一次回答要 40 �
 
 ## 落到我自己的项目
 
-- [agent-prism](https://github.com/daftpunkwav/agent-prism)：多种方案并排实时流式展示推理过程。
+- [agent-prism](https://github.com/daftpunkwav/agent-prism)：十种驱动并排流式输出，事件按到达顺序合并。
 - [real-mock](https://github.com/daftpunkwav/real-mock)：语音面试需要 WebSocket 承载全双工音频与控制流。
