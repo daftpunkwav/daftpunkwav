@@ -2,7 +2,7 @@
 
 这里逐个记录我用过的 AI 编程 / 通用 Agent 工具。写法统一：**先说它是什么形态、怎么搭的，再说我的结论**。
 
-不排名、不打分，因为场景不同结论就不同；只记「在什么情况下我会打开它」。
+不排名、不打分，因为场景不同结论就不同；只记在什么情况下我会打开它。
 
 ## 目录
 
@@ -10,7 +10,7 @@
 | :--- | :--- | :--- | :--- |
 | [Claude Code](claude-code.md) | Anthropic | 终端 CLI | 读懂整个仓库之后的跨文件改动、长链路任务 |
 | [Codex CLI](codex-cli.md) | OpenAI | 终端 CLI（开源） | 按明确步骤批量执行、照 spec 改接口 |
-| [pi](pi.md) | badlogic / earendil-works | Agent 工具箱（开源） | 读「Agent 循环到底该怎么写」，自己搭东西时抄 |
+| [pi](pi.md) | badlogic / earendil-works | Agent 工具箱（开源） | 读 Agent 循环到底该怎么写，自己搭东西时抄 |
 | [Cursor](cursor.md) | Anysphere | IDE | 日常写代码、补全与 inline edit 的主战场 |
 | [OpenCode](opencode.md) | SST | 终端 Agent（开源） | 接自建网关、多 provider 自由切换的实验 |
 | [dsh](dsh.md) | DeepSeek | 桌面 + Web GUI 的 harness | 一个界面统管后台任务、子代理和文件产出 |
@@ -33,11 +33,11 @@
 | [DeepCode](deepcode.md) | HKUDS / 社区 | 两个同名项目 | 同名项目越来越多，链接必须钉死 |
 | [goose](goose.md) | Block | 本地 Agent（开源） | recipe + MCP 的组合，团队可分享 |
 | [WorkBuddy](workboddy.md) | 腾讯 | 桌面办公 Agent | 面向知识工作而不是写代码 |
-| [Resonix](resonix.md) | 未确认 | — | 检索没找到同名的 Agent，先留着记录 |
+| [Resonix](resonix.md) | 未确认 | 未知 | 检索没找到同名的 Agent，先留着记录 |
 
 ## 怎么读这些条目
 
-- **形态**一栏说的是「这个工具以什么形式存在」：终端、IDE、桌面应用、云端工单，还是一个可以自己拼的库。
+- **形态**一栏说的是这个工具以什么形式存在：终端、IDE、桌面应用、云端工单，还是一个可以自己拼的库。
 - **技术形态**一栏只写可核实的部分：架构特点、扩展方式、权限模型这类能追到文档或源码的东西。
 - **我的使用结论**一栏是主观的，写的是当时的判断，带时间属性。工具换得很快，隔半年回来看大概率要改。
 - 想看怎么读这些结论，参见 [上级目录的约定](../README.md)。
