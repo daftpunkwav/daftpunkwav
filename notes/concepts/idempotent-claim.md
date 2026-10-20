@@ -29,5 +29,5 @@ Agent 场景下，重复执行不是异常，而是常态：网络超时重试�
 
 ## 落到我自己的项目
 
-- [wave-code](https://github.com/daftpunkwav/wave-code)：长任务需要被唯一认领，断点续跑时不会出现两个执行者同时改同一份工作区。
-- [breakwater](https://github.com/daftpunkwav/breakwater)：网关侧对同一请求重试、故障切换时的计数与计费要按同一笔业务而不是同一次 HTTP 调用来算。
+- [wave-code](https://github.com/daftpunkwav/wave-code)：run 级的副作用用 run_id 加 scope 做幂等键。
+- [breakwater](https://github.com/daftpunkwav/breakwater)：额度用 lease 先预留再结算，重试和故障切换都记在同一笔业务上。

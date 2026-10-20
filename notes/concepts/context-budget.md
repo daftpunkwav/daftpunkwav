@@ -31,5 +31,5 @@ Agent 的每一个 token 都要钱，也都要时间。更重要的是，上下�
 
 ## 落到我自己的项目
 
-- [rutter](https://github.com/daftpunkwav/rutter)：把真实网页变成 Agent 能消费的页面结构，而不是把整页文本塞给模型。
-- [cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)：多源检索结果合并去重，避免同一份内容重复占用上下文。
+- [rutter](https://github.com/daftpunkwav/rutter)：页面快照按两万字符预算裁成无障碍树，不把整页 DOM 塞给模型。
+- [cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)：多通道结果按规范化 URL 去重合并，同一份内容不重复占上下文。

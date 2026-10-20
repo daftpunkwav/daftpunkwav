@@ -24,6 +24,6 @@ MCP（Model Context Protocol）做的是这件事：工具用结构化 schema �
 
 ## 落到我自己的项目
 
-- [cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)：多源搜索的 MCP 服务，同时也能当 CLI 独立使用。
+- [cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)：多通道搜索的 MCP 服务，同一个二进制也能当命令行用。
 - [rutter](https://github.com/daftpunkwav/rutter)：浏览器能力的 MCP 服务。
-- [wave-code](https://github.com/daftpunkwav/wave-code)：编程助手的工具层走 MCP。
+- [wave-code](https://github.com/daftpunkwav/wave-code)：命令行编码代理的工具层走 MCP。

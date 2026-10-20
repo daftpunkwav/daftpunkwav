@@ -26,4 +26,4 @@ Agent 的自主性不是越高越好。自主性应该和动作的可逆性挂�
 
 ## 落到我自己的项目
 
-- [rutter](https://github.com/daftpunkwav/rutter)：浏览器里的敏感操作会先停下来等人确认，而不是让 Agent 自己决定点下去。
+- [rutter](https://github.com/daftpunkwav/rutter)：写 cookie、传文件、file:// 导航默认要人工批准，规则写在策略文件里，裁决在宿主侧完成。
