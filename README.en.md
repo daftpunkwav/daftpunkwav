@@ -42,7 +42,7 @@ Most of these projects started from a real need of my own and grew from there. I
 
 ### 📝 Notes
 
-I did not want to leave it at "I have used it", so the details live here:
+Each agent tool has a page of its own, and the details are here:
 
 - **[Agent usage notes](./notes/agents/)**: one page per agent tool: what shape it is, how it is built, what I use it for, and when I reach for it. (Chinese)
 - **[Notes on techniques and concepts](./notes/concepts/)**: my own read on the specific choices: resumable execution, idempotent claims, human-in-the-loop, rate limiting and circuit breaking, streaming-first, MCP as a tool contract, parallel A/B tests, shared primitives for humans and agents, context budgets. (Chinese)

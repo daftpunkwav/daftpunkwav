@@ -19,7 +19,7 @@
 
 写代码我用 AI 帮忙，但翻翻我的 PR 和 commit 就知道门禁卡得挺严：类型检查、架构边界、故障恢复这些该有的都有。
 
-用过的 Agent 三十多个，主流的、实验性的都试过一遍，感受很多，这里写不下，所以每个都单独记了一份，如 Claude Code、Codex CLI、pi、Cursor、OpenCode、dsh、Grok Build、Kimi Code……：[Agent 使用记录](./notes/agents/)。
+用过的 Agent 不下 30 个，主流的、实验性的都试过一遍，感受很多，这里写不下，所以每个都单独记了一份，如 Claude Code、Codex CLI、pi、Cursor、OpenCode、dsh、Grok Build、Kimi Code……：[Agent 使用记录](./notes/agents/)。
 
 目前写得多的是 Python 和 TypeScript，Go、C/C++、Rust 也都写过，最喜欢的语言大概是 C#。
 
@@ -42,7 +42,7 @@
 
 ### 📝 笔记
 
-不想只写一句用过就算完，所以细节都放在这里：
+每个用过的 Agent 工具我都单独写了一页，细节都在这里：
 
 - **[Agent 使用记录](./notes/agents/)**：用过的 Agent 工具逐个介绍：它是什么形态、怎么搭的、我拿它干什么、什么情况下会打开它。
 - **[技术与概念评述](./notes/concepts/)**：我对具体做法的判断：断点续跑、幂等认领、人工确认、限流熔断、流式优先、MCP 作为工具契约、并行对照实验、人机同权、上下文预算。
