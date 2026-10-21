@@ -32,13 +32,13 @@
 | 项目 | 定位 | 核心机制 | 技术栈 |
 | :--- | :--- | :--- | :--- |
 | **[real-mock](https://github.com/daftpunkwav/real-mock)** | 简历诊断与模拟面试平台 | 面试按状态机推进，每步结束把对话压成结构化摘要；简历从 12 个维度评价，PDF 渲染成图让模型看；编程题在浏览器里直接跑 Python | `Next.js` `FastAPI` `SQLite` `faster-whisper` |
-| **[voyager](https://github.com/daftpunkwav/voyager)** | 本地优先的人机共用工作台 | 一个能力注册后接出进程内调用、REST 和 MCP 三套入口，人和 AI 走同一条鉴权、配额、审计链；事件日志是唯一事实源，可以回放 | `FastAPI` `React` `SQLite` `MCP` |
+| **[voyager](https://github.com/daftpunkwav/voyager)** | 本地优先的人机共用工作台 | 一个能力注册后有进程内调用、REST、MCP 三套入口，人和 AI 走同一条鉴权、配额、审计链；事件日志是唯一事实源，可以回放 | `FastAPI` `React` `SQLite` `MCP` |
 | **[agent-prism](https://github.com/daftpunkwav/agent-prism)** | 多框架并排对照实验平台 | 16 个内建维度一次只换一个变量，十种驱动并排流式跑；报告摆出耗时、token、工具调用和消融对比 | `TypeScript` `Hono` `SSE` `Zod` |
-| **[wave-code](https://github.com/daftpunkwav/wave-code)** | Rust 写的命令行编码代理 | 回合状态机走采样、决策、执行、恢复，工具和策略都是 trait 接缝；历史变更写进本地 journal，崩溃最多丢进行中的那一步；长回合靠 goal 续跑 | `Rust` `MCP` `tokio` |
+| **[wave-code](https://github.com/daftpunkwav/wave-code)** | Rust 写的命令行编码代理 | 回合状态机走采样、决策、执行、恢复，工具和策略按 trait 解耦；历史变更写进本地 journal，崩溃最多丢进行中的那一步；长回合靠 goal 续跑 | `Rust` `MCP` `tokio` |
 | **[breakwater](https://github.com/daftpunkwav/breakwater)** | 多协议 LLM 治理网关 | 三种协议汇进同一条治理管线；限流是自写令牌桶（RPM+TPM），熔断三种策略择一，上游失败后按候选顺序切换；额度按 lease 预留结算 | `Go` `Redis` `PostgreSQL` `Docker` |
 | **[rutter](https://github.com/daftpunkwav/rutter)** | 给 Agent 用的真实浏览器服务 | 25 个 MCP 工具驱动真实 Chrome；页面快照按两万字符预算裁成无障碍树，不给原始 DOM；写 cookie、传文件、file:// 导航默认要人工批准 | `Rust` `MCP` `CDP` |
 | **[cn-websearch-mcp](https://github.com/daftpunkwav/cn-websearch-mcp)** | 多通道联网搜索 MCP 服务 | Kimi、MiMo、StepFun、智谱四个通道协议不同，归一化成同一份结果；可以逐个降级，也可以并发查完按规范化 URL 去重合并；取消、超时、全部失败是三种不同结果 | `TypeScript` `MCP` `Node.js` |
-| **[re-resume](https://github.com/daftpunkwav/re-resume)** | 本地优先的桌面简历工作台 | 经历库是真相源，表述分确认、待定、拒绝三态，块只能引用已确认的表述；排版是纯函数，画布和 AI 用同一个函数同一个度量器；AI 的 12 个工具 schema 全部 strict，写操作只接受 id | `Tauri 2` `React` `SQLite` `Konva` |
+| **[re-resume](https://github.com/daftpunkwav/re-resume)** | 本地优先的桌面简历工作台 | 经历库是真相源，表述分确认、待定、拒绝三态，块只能引用已确认的表述；排版是纯函数，画布和 AI 用同一个函数同一个度量器；AI 的 12 个工具参数校验都是封闭的，写操作只接受 id | `Tauri 2` `React` `SQLite` `Konva` |
 
 ### 📝 笔记
 
