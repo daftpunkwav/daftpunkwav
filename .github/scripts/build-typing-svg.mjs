@@ -112,7 +112,10 @@ const gradient = (id, colors) => {
 const line = (index, text) => {
   const pathId = `p${index}`;
   const animateId = `d${index}`;
-  const begin = index === 0 ? '0s' : `${animateId - 1}.end`;
+  // The first line starts immediately and again whenever the second one ends,
+  // so the two lines keep alternating. The second line starts when the first
+  // one is done.
+  const begin = index === 0 ? `0s;d${LINES.length - 1}.end` : `d${index - 1}.end`;
   const path =
     `<path id='${pathId}'>` +
     `<animate id='${animateId}' attributeName='d' begin='${begin}' dur='6200ms' fill='remove' ` +
