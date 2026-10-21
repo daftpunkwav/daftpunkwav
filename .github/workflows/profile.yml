@@ -41,6 +41,13 @@ jobs:
             dist/github-contribution-grid-snake.svg?color_snake=%23db2777&color_dots=%23e2e8f2,%230891b2,%232563eb,%239333ea,%23c026d3
             dist/github-contribution-grid-snake-dark.svg?color_snake=%2300f5d4&color_dots=%23221a49,%236d28d9,%23c026d3,%23ff2e97,%23ffb03a
 
+      # The typing banner is generated here instead of being fetched from
+      # readme-typing-svg: that service cannot follow the colour scheme, and it
+      # only offers a fixed rainbow. One file per scheme, the README picks the
+      # matching one with <picture>, the same way it picks the snake.
+      - name: Generate typing banner
+        run: node .github/scripts/build-typing-svg.mjs
+
       - name: Generate profile cards
         env:
           GITHUB_USER: ${{ github.repository_owner }}
