@@ -27,7 +27,10 @@ jobs:
       # ever has to stay clear of the four activity colours. Most weeks are empty
       # and level 1 dwarfs 2-4, so the empty and level-1 colours are what carry
       # the theme; levels 3-4 are almost never reached.
-      # light: cyberpunk — cyan to fuchsia activity, hot-pink snake
+      # light: cyberpunk — cyan to fuchsia activity, hot-pink snake. The four
+      # activity colours must fall in luminance as the level rises; the Tailwind
+      # 600 row this used to use did not (level 4 at 0.173 was lighter than
+      # level 2 at 0.153), so the busiest days read quieter than mid ones.
       # dark: synthwave — violet to sunset-orange gradient, cyan snake; the
       # empty cell sits in the same violet family so the grid reads as one
       # continuous arc instead of a cold block next to hot dots
@@ -38,7 +41,7 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=%23db2777&color_dots=%23e2e8f2,%230891b2,%232563eb,%239333ea,%23c026d3
+            dist/github-contribution-grid-snake.svg?color_snake=%23db2777&color_dots=%23e2e8f2,%238ae5f5,%237baffc,%23986feb,%23a81ba3
             dist/github-contribution-grid-snake-dark.svg?color_snake=%2300f5d4&color_dots=%23221a49,%236d28d9,%23c026d3,%23ff2e97,%23ffb03a
 
       # The typing banner is generated here instead of being fetched from
