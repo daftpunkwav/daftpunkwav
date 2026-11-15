@@ -28,12 +28,16 @@ const LINES = [
   'Python · TypeScript · C# · Go · C/C++ · Rust',
 ];
 
-// Colours taken from the snake palettes in .github/workflows/profile.yml, so the
-// banner and the contribution grid read as one picture:
+// Colours follow the snake palettes in .github/workflows/profile.yml, so the
+// banner and the contribution grid read as one picture. The grid is drawn in
+// tints, because its levels have to fall monotonically in luminance; text needs
+// ink, so the light ramp is the same hue path at text strength. Level 4,
+// #a81ba3, is the one tint dark enough to be shared verbatim. Dark is text on a
+// dark background already, so it takes the grid colours unchanged.
 //   light  cyberpunk, cyan through hot pink
 //   dark   synthwave, cyan through sunset orange
 const THEMES = {
-  light: ['#0891b2', '#2563eb', '#9333ea', '#c026d3', '#db2777'],
+  light: ['#0891b2', '#2563eb', '#9333ea', '#a81ba3', '#db2777'],
   dark: ['#00f5d4', '#6d28d9', '#c026d3', '#ff2e97', '#ffb03a'],
 };
 
